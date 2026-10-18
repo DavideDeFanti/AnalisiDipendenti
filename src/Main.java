@@ -1,5 +1,7 @@
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -39,7 +41,7 @@ public class Main {
         Function<String, Dipendente> creaDipendente = Dipendente::new;
         String[] nomiDipendenti = {"Mario", "Giulia", "Stefano", "Carlo", "Matteo"};
         List<Dipendente> listaNomiDipendenti = new ArrayList<>();
-        for (String nomi : nomiDipendenti){
+        for (String nomi : nomiDipendenti) {
             listaNomiDipendenti.add(creaDipendente.apply(nomi));
         }
         System.out.println(listaNomiDipendenti);
@@ -47,9 +49,41 @@ public class Main {
         listaNomiDipendenti.sort(ordineAlfabetico);
         System.out.println("Lista nomi ordinati:");
         System.out.println(listaNomiDipendenti);
+        System.out.println();
 
+        // Analisi con Stream
+        // Filtro
+        Stream<Dipendente> streamFiltro = listaDipendenti.stream()
+                .filter(dip -> dip.getStipendio() > 30000.0);
+        System.out.println("Filtro stipendio maggiore di 30.000:");
+        streamFiltro.forEach(System.out::println);
+        System.out.println();
 
+        //Ordinamento
+        Stream<Dipendente> streamOrdine = listaDipendenti.stream()
+                .sorted(Comparator.comparing(Dipendente::getEta));
+        System.out.println("Ordinamento crescente per età:");
+        streamOrdine.forEach(System.out::println);
+        System.out.println();
 
+        //Map
+        OptionalDouble mediaStipendi = listaDipendenti
+                .stream()
+                .mapToDouble(Dipendente::getStipendio)
+                .average();
+        mediaStipendi.ifPresent(media -> System.out.println("Stipendio medio: " + media));
+        mediaStipendi.orElse(- 1.0);
+        System.out.println();
 
+        // Raggruppare
+        Map<Dipartimento, List<Dipendente>> dipendentiPerDipartimento =
+                listaDipendenti.stream()
+                        .collect(Collectors.groupingBy(Dipendente::getDipartimento));
+
+        dipendentiPerDipartimento
+                .forEach((chiave, valore) -> {
+                            System.out.println(chiave + ": " + valore);
+                        }
+                );
     }
 }
