@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
@@ -35,5 +34,22 @@ public class Main {
         }
         System.out.println(listaFiltroStipendio);
         System.out.println();
+
+        // Method reference e Constructor reference
+        Function<String, Dipendente> creaDipendente = Dipendente::new;
+        String[] nomiDipendenti = {"Mario", "Giulia", "Stefano", "Carlo", "Matteo"};
+        List<Dipendente> listaNomiDipendenti = new ArrayList<>();
+        for (String nomi : nomiDipendenti){
+            listaNomiDipendenti.add(creaDipendente.apply(nomi));
+        }
+        System.out.println(listaNomiDipendenti);
+        Comparator<Dipendente> ordineAlfabetico = Comparator.comparing(Dipendente::getNome);
+        listaNomiDipendenti.sort(ordineAlfabetico);
+        System.out.println("Lista nomi ordinati:");
+        System.out.println(listaNomiDipendenti);
+
+
+
+
     }
 }

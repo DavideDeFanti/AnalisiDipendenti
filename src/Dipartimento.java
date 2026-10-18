@@ -1,4 +1,4 @@
 public enum Dipartimento {
-    HR, IT, FINANCE, SALES;
+    HR, IT, FINANCE, SALES, GENERICO;
 
 }

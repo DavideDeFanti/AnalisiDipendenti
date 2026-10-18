@@ -12,6 +12,14 @@ public class Dipendente {
         this.dipartimento = dipartimento;
     }
 
+    // Costruttore con solo il nome
+    public Dipendente(String nome) {
+        this.nome = nome;
+        this.eta = 20;
+        this.stipendio = 20000.0;
+        this.dipartimento = Dipartimento.GENERICO;
+    }
+
     public String getNome() {
         return nome;
     }
