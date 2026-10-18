@@ -28,4 +28,10 @@ public class Dipendente {
         return dipartimento;
     }
 
+    @Override
+    public String toString() {
+        return nome + " - " + "Età: " + eta + " - " + "Stipendio: " + stipendio + " - " + "Dipartimento: " + dipartimento;
+
+    }
+
 }
